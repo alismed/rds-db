@@ -1,0 +1,19 @@
+profile                             = "default"
+region                              = "us-east-1"
+db_name                             = "mydb"
+db_identifier                       = "dev-postgres"
+db_username                         = "foo"
+master_password                     = "SuaSenhaMestraSegura123!"
+iam_database_authentication_enabled = true
+allocated_storage                   = 10
+max_allocated_storage               = 10
+engine                              = "postgres"
+parameter_group_family              = "postgres16"
+engine_version                      = "16.6"
+instance_class                      = "db.t3.micro"
+tags = {
+  Name        = "mydb"
+  Environment = "dev"
+  Department  = "engineering"
+}
+destroy_bucket = false
