@@ -1,0 +1,19 @@
+profile                             = "default"
+region                              = "us-east-1"
+vpc_id                              = "vpc-596a1d3c"
+db_name                             = "mydb"
+db_identifier                       = "dev-postgres"
+db_username                         = "dbuser"
+iam_database_authentication_enabled = true
+allocated_storage                   = 20
+max_allocated_storage               = 30
+engine                              = "postgres"
+parameter_group_family              = "postgres16"
+engine_version                      = "16.6"
+instance_class                      = "db.t3.micro"
+tags = {
+  Name        = "mydb"
+  Environment = "dev"
+  Department  = "engineering"
+}
+destroy_bucket = false

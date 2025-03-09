@@ -10,6 +10,12 @@ variable "profile" {
   default     = ""
 }
 
+variable "vpc_id" {
+    description = "The VPC ID"
+    type        = string
+    default     = ""
+}
+
 variable "tags" {
   description = "Tags to be applied to resources"
   type        = map(string)
@@ -21,9 +27,12 @@ variable "tags" {
 }
 
 variable "db_identifier" {
-  description = "The identifier of the RDS instance"
   type        = string
-  default     = ""
+  description = "Database identifier"
+  validation {
+    condition     = can(regex("^[a-z0-9-]*$", var.db_identifier))
+    error_message = "The db_identifier must contain only lowercase letters, numbers, and hyphens."
+  }
 }
 
 variable "db_name" {
@@ -36,12 +45,6 @@ variable "iam_database_authentication_enabled" {
   description = "Enable IAM database authentication"
   type        = bool
   default     = true
-}
-
-variable "master_password" {
-  description = "Master password for RDS instance"
-  type        = string
-  sensitive   = true
 }
 
 variable "db_username" {
@@ -84,4 +87,34 @@ variable "parameter_group_family" {
   description = "The family of the DB parameter group"
   type        = string
   default     = "postgres16"
+}
+
+variable "monitoring_interval" {
+  description = "The interval, in seconds, between points when Enhanced Monitoring metrics are collected"
+  type        = number
+  default     = 60
+}
+
+variable "backup_retention_period" {
+  description = "The days to retain backups for"
+  type        = number
+  default     = 2
+}
+
+variable "backup_window" {
+  description = "The daily time range during which automated backups are created"
+  type        = string
+  default     = "03:00-04:00"
+}
+
+variable "maintenance_window" {
+  description = "The window to perform maintenance in"
+  type        = string
+  default     = "Mon:04:00-Mon:05:00"
+}
+
+variable "sg_allowed_cidr_blocks" {
+  description = "List of CIDR blocks allowed to connect to the database"
+  type        = list(string)
+  default     = ["0.0.0.0/0"]
 }
