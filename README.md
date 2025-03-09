@@ -58,17 +58,29 @@ terraform -chdir=infra apply -auto-approve
 terraform -chdir=infra destroy -auto-approve
 ```
 
-### Generate token to connect to RDS
-Could be using AWS CloudShell or AWS Cli.
+### Get the RDS Master Credentials
 ```shell
-export PGPASSWORD="$(aws rds generate-db-auth-token \
-  --hostname dev-postgres.xxxxx.region.rds.amazonaws.com \
+aws secretsmanager get-secret-value \
+  --secret-id "rds/dev-postgres/master-credentials" \
+  --query 'SecretString' \
+  --output text | jq -r .
+```
+
+### Generate RDS Token
+```shell
+export RDSHOST="dev-postgres.xxxxx.region.rds.amazonaws.com"
+export TOKEN="$(aws rds generate-db-auth-token \
+  --hostname $RDSHOST \
   --port 5432 \
   --region us-east-1 \
   --username foo)"
 ```
 
-### Connect to RDS
+### Connect to RDS with Token
 ```shell
-psql "host=dev-postgres.xxxxx.region.rds.amazonaws.com port=5432 dbname=mydb user=foo"
+PGPASSWORD="${TOKEN}" psql \
+  --host=$RDSHOST \
+  --port=5432 \
+  --username=foo \
+  --dbname=mydb
 ```
