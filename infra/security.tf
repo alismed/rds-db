@@ -4,13 +4,13 @@ resource "random_password" "master" {
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
-resource "aws_secretsmanager_secret" "rds_credentials" {
+resource "aws_secretsmanager_secret" "my_rds_credentials" {
   name = "rds-${lower(var.db_identifier)}-master-credentials"
   tags = var.tags
 }
 
-resource "aws_secretsmanager_secret_version" "rds_credentials" {
-  secret_id = aws_secretsmanager_secret.rds_credentials.id
+resource "aws_secretsmanager_secret_version" "my_rds_credentials" {
+  secret_id = aws_secretsmanager_secret.my_rds_credentials.id
   secret_string = jsonencode({
     username = var.db_username
     password = random_password.master.result
