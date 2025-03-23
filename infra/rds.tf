@@ -1,15 +1,15 @@
 resource "aws_db_parameter_group" "postgres" {
-  family      = var.parameter_group_family
-  name        = var.parameter_group_name
-  description = var.parameter_group_description
+  family      = local.engine_config.parameter_group_family
+  name        = local.engine_config.parameter_group_name
+  description = local.engine_config.parameter_group_description
 }
 
 resource "aws_db_instance" "db" {
   allocated_storage                   = var.allocated_storage
   max_allocated_storage               = var.max_allocated_storage
   db_name                             = var.db_name
-  engine                              = var.engine
-  engine_version                      = var.engine_version
+  engine                              = local.engine_config.engine
+  engine_version                      = local.engine_config.engine_version
   instance_class                      = var.instance_class
   password                            = random_password.master.result
   username                            = var.db_username

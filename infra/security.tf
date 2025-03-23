@@ -19,12 +19,12 @@ resource "aws_secretsmanager_secret_version" "rds_credentials" {
 
 resource "aws_security_group" "rds_sg" {
   name        = "rds-security-group"
-  description = "Allow PostgreSQL inbound traffic"
+  description = "Allow database inbound traffic"
   vpc_id      = var.vpc_id
 
   ingress {
-    from_port   = var.db_port
-    to_port     = var.db_port
+    from_port   = local.engine_config.port
+    to_port     = local.engine_config.port
     protocol    = "tcp"
     cidr_blocks = var.sg_allowed_cidr_blocks
   }

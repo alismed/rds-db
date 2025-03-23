@@ -65,38 +65,17 @@ variable "max_allocated_storage" {
   default     = 10
 }
 
-variable "engine" {
-  description = "Database engine"
+variable "engine_type" {
+  description = "Type of database engine (postgres or mariadb)"
   type        = string
-  default     = ""
-}
-
-variable "engine_version" {
-  description = "Database engine version"
-  type        = string
-  default     = ""
+  validation {
+    condition     = contains(["postgres", "mariadb"], var.engine_type)
+    error_message = "Valid values for engine_type are: postgres, mariadb"
+  }
 }
 
 variable "instance_class" {
   description = "Database instance class"
-  type        = string
-  default     = ""
-}
-
-variable "parameter_group_family" {
-  description = "The family of the DB parameter group"
-  type        = string
-  default     = ""
-}
-
-variable "parameter_group_name" {
-  description = "Name of the parameter group"
-  type        = string
-  default     = ""
-}
-
-variable "parameter_group_description" {
-  description = "Description of the parameter group"
   type        = string
   default     = ""
 }
@@ -129,12 +108,6 @@ variable "sg_allowed_cidr_blocks" {
   description = "List of CIDR blocks allowed to connect to the database"
   type        = list(string)
   default     = ["0.0.0.0/0"]
-}
-
-variable "db_port" {
-  description = "The port number for Database"
-  type        = number
-  default     = 0
 }
 
 variable "storage_encrypted" {
