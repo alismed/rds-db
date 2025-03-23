@@ -48,9 +48,9 @@ output "db_instance_status" {
 }
 
 output "aws_secretsmanager_secret" {
-  value = aws_secretsmanager_secret.rds_credentials.arn
+  value = aws_secretsmanager_secret.my_rds_credentials.arn
 }
 
 output "aws_secretsmanager_secret_version" {
-  value = aws_secretsmanager_secret_version.rds_credentials.arn
+  value = aws_secretsmanager_secret_version.my_rds_credentials.arn
 }
