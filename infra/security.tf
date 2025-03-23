@@ -1,3 +1,9 @@
+resource "random_string" "suffix" {
+  length  = 4
+  special = false
+  upper   = false
+}
+
 resource "random_password" "master" {
   length           = 16
   special          = true
@@ -5,7 +11,7 @@ resource "random_password" "master" {
 }
 
 resource "aws_secretsmanager_secret" "my_rds_credentials" {
-  name = "rds-${lower(var.db_identifier)}-master-credentials"
+  name = "rds-${lower(var.db_identifier)}-master-credentials-${random_string.suffix.result}"
   tags = var.tags
 }
 
