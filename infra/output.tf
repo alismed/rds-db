@@ -1,3 +1,15 @@
+output "db_instance_engine" {
+  value = aws_db_instance.db.engine
+}
+
+output "db_instance_engine_version" {
+  value = aws_db_instance.db.engine_version
+}
+
+output "db_instance_parameter_group_name" {
+  value = aws_db_instance.db.parameter_group_name
+}
+
 output "db_instance_endpoint" {
   value = aws_db_instance.db.endpoint
 }
@@ -22,9 +34,6 @@ output "db_instance_resource_id" {
   value = aws_db_instance.db.resource_id
 }
 
-output "db_instance_engine" {
-  value = aws_db_instance.db.engine
-}
 
 output "db_instance_allocated_storage" {
   value = aws_db_instance.db.allocated_storage

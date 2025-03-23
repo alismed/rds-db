@@ -11,9 +11,9 @@ variable "profile" {
 }
 
 variable "vpc_id" {
-    description = "The VPC ID"
-    type        = string
-    default     = ""
+  description = "The VPC ID"
+  type        = string
+  default     = ""
 }
 
 variable "tags" {
@@ -56,13 +56,13 @@ variable "db_username" {
 variable "allocated_storage" {
   description = "Allocated storage in GB"
   type        = number
-  default     = 1
+  default     = 10
 }
 
 variable "max_allocated_storage" {
   description = "Maximum allocated storage in GB"
   type        = number
-  default     = 1
+  default     = 10
 }
 
 variable "engine" {
@@ -74,7 +74,7 @@ variable "engine" {
 variable "engine_version" {
   description = "Database engine version"
   type        = string
-  default     = "16.6"
+  default     = ""
 }
 
 variable "instance_class" {
@@ -86,7 +86,19 @@ variable "instance_class" {
 variable "parameter_group_family" {
   description = "The family of the DB parameter group"
   type        = string
-  default     = "postgres16"
+  default     = ""
+}
+
+variable "parameter_group_name" {
+  description = "Name of the parameter group"
+  type        = string
+  default     = ""
+}
+
+variable "parameter_group_description" {
+  description = "Description of the parameter group"
+  type        = string
+  default     = ""
 }
 
 variable "monitoring_interval" {
@@ -117,4 +129,22 @@ variable "sg_allowed_cidr_blocks" {
   description = "List of CIDR blocks allowed to connect to the database"
   type        = list(string)
   default     = ["0.0.0.0/0"]
+}
+
+variable "db_port" {
+  description = "The port number for Database"
+  type        = number
+  default     = 0
+}
+
+variable "storage_encrypted" {
+  description = "Specifies whether the DB instance is encrypted"
+  type        = bool
+  default     = true
+}
+
+variable "multi_az" {
+  description = "Specifies if the RDS instance is multi-AZ"
+  type        = bool
+  default     = true
 }
